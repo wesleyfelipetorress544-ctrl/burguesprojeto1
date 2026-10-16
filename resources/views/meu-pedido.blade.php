@@ -1799,7 +1799,7 @@
                                         @if($image)
 
                                             <img
-                                                src="{{ asset('storage/' . $image) }}"
+                                                src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($image) }}"
                                                 alt="{{ $name }}">
 
                                         @else

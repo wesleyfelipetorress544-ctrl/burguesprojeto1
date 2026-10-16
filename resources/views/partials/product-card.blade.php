@@ -7,9 +7,9 @@
         data-product-name="{{ $product->name }}"
         data-product-description="{{ $product->description }}"
         data-product-price="{{ number_format((float) $product->price, 2, ',', '.') }}"
-        data-product-image="{{ asset('storage/' . $product->image_path) }}"
+        data-product-image="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($product->image_path) }}"
         data-product-category-label="{{ $product->category === 'lanches' ? \App\Models\Product::BURGER_TYPES[$product->burger_type] : \App\Models\Product::CATEGORIES[$product->category] }}">
-        <img src="{{ asset('storage/' . $product->image_path) }}" alt="" loading="lazy">
+        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($product->image_path) }}" alt="" loading="lazy">
         <span class="catalog-product-info">
             <span class="catalog-product-category">
                 {{ $product->category === 'lanches' ? \App\Models\Product::BURGER_TYPES[$product->burger_type] : \App\Models\Product::CATEGORIES[$product->category] }}

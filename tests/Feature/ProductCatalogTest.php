@@ -234,6 +234,21 @@ it('shows saved products on their matching public menu pages', function () {
         ->assertSee('Batata frita');
 });
 
+it('renders product image URLs from the configured public storage disk', function () {
+    config(['filesystems.disks.public.url' => 'https://images.example.test']);
+
+    Product::factory()->create([
+        'category' => 'lanches',
+        'burger_type' => 'classicos',
+        'image_path' => 'products/burger.webp',
+    ]);
+
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertSee('data-product-image="https://images.example.test/products/burger.webp"', false)
+        ->assertSee('src="https://images.example.test/products/burger.webp"', false);
+});
+
 it('allows an administrator to remove a product and its stored image', function () {
     Storage::fake('public');
     $administrator = User::factory()->create(['is_admin' => true]);
